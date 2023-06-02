@@ -17,8 +17,14 @@ class Item:
         """
         self.__name = name #делаем атрибут приватным
         self.price = price
-        self.quantiti = quantity
+        self.quantity = quantity
         Item.all.append(self)
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
+
+    def __str__(self):
+        return f'{self.name}'
 
     @property
     def name(self):
@@ -39,7 +45,7 @@ class Item:
 
         :return: Общая стоимость товара.
         """
-        return self.price * self.quantiti
+        return self.price * self.quantity
 
     def apply_discount(self) -> None:
         """

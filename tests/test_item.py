@@ -1,4 +1,10 @@
 from src.item import Item
+import pytest
+
+@pytest.fixture
+def test_item():
+    return Item("Смартфон", 10000, 20)
+
 def test_apply_discount():
     item1 = Item("Смартфон", 10000, 20)
     Item.pay_rate = 0.8
@@ -20,3 +26,9 @@ def test_instantiate_from_csv():
 def test_string_to_number():
     assert Item.string_to_number('5') == 5
     assert Item.string_to_number('5.0') == 5
+
+def test_repr(test_item):
+    assert repr(test_item) == "Item('Смартфон', 10000, 20)"
+
+def test_str(test_item):
+    assert str(test_item) == 'Смартфон'
