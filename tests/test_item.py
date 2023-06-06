@@ -32,3 +32,6 @@ def test_repr(test_item):
 
 def test_str(test_item):
     assert str(test_item) == 'Смартфон'
+
+def test_item_add(test_item):
+    assert test_item + test_item == 40
