@@ -68,4 +68,9 @@ class Item:
         '''Cтатический метод, возвращающий число из числа-строки'''
         return int(float(number))
 
+    def __add__(self, other):
+        if not isinstance(other, Item):
+            raise ValueError('Складывать можно только объекты Item и дочерние от них (Phone).')
+        return self.quantity + other.quantity
+
 
