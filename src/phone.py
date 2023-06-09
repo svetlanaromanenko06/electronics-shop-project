@@ -6,16 +6,17 @@ class Phone(Item):
         дополнительно атрибут, содержащий количество поддерживаемых сим-карт"""
     def __init__(self, name: str, price: float, quantity: int, number_of_sim: int):
         super().__init__(name, price, quantity)
+        self.number_of_sim = number_of_sim
 
     @property
     def number_of_sim(self):
-        return self.number_of_sim
+        return self.__number_of_sim
 
 
     @number_of_sim.setter
     def number_of_sim(self, num_sim):
         if num_sim > 0:
-            self.number_of_sim = num_sim
+            self.__number_of_sim = num_sim
         else:
             raise ValueError('Количество физических SIM-карт должно быть целым числом больше нуля')
 
