@@ -15,5 +15,8 @@ def test_phone_init(test_phone):
     assert test_phone.quantity == 5
 
 
-
+def test_number_of_sim_errors(test_phone):
+    with pytest.raises(ValueError):
+        test_phone.number_of_sim = -1
+        test_phone.number_of_sim = 0
 
