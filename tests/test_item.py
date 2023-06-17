@@ -1,5 +1,7 @@
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 import pytest
+from os import path
+
 
 @pytest.fixture
 def test_item():
@@ -22,6 +24,12 @@ def test_calculate_total_price():
 def test_instantiate_from_csv():
     Item.instantiate_from_csv()
     assert Item.all[-2].name == 'Мышка'
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv('')
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv('../src/items_1.csv')
+
+
 
 def test_string_to_number():
     assert Item.string_to_number('5') == 5
@@ -35,3 +43,4 @@ def test_str(test_item):
 
 def test_item_add(test_item):
     assert test_item + test_item == 40
+
