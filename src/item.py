@@ -54,13 +54,23 @@ class Item:
         self.price = self.price * self.pay_rate
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, filename='../src/items.csv'):
         '''Класс-метод, инициализирующий экземпляры класса `Item`данными из файла ../src/items.csv'''
         cls.all.clear()
-        with open(path.join('..', 'src', 'items.csv'), 'r', encoding='cp1251') as csvfile:
-            data = DictReader(csvfile)
-            for i in data:
-                cls(i['name'], i['price'], i['quantity'])
+        try:
+            with open(filename, 'r', encoding='cp1251') as csvfile:
+                data = DictReader(csvfile)
+                for i in data:
+                    cls(i['name'], i['price'], i['quantity'])
+
+
+        except FileNotFoundError:
+            raise FileNotFoundError('Отсутствует файл items.csv')
+
+        except KeyError:
+            raise InstantiateCSVError
+
+
 
     @staticmethod
 
@@ -72,5 +82,12 @@ class Item:
         if not isinstance(other, Item):
             raise ValueError('Складывать можно только объекты Item и дочерние от них (Phone).')
         return self.quantity + other.quantity
+
+
+
+class InstantiateCSVError(Exception):
+    '''Класс-исключение для отлавливания ошибки, если файл поврежден'''
+    def __init__(self):
+        self.message = 'Файл items.csv поврежден'
 
 
